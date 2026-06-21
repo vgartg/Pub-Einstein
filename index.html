@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Паб Эйнштейна — Ростов-на-Дону</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400;1,600&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg:       #091410;
+  --bg2:      #0e1d18;
+  --bg3:      #142319;
+  --surface:  #1a2e22;
+  --green:    #3a8c50;
+  --green2:   #4fa866;
+  --green3:   #7ecc94;
+  --cream:    #ede5c8;
+  --text:     #c8bfa0;
+  --muted:    #6b7a64;
+  --amber:    #c8900a;
+  --amber2:   #e8ac30;
+  --white:    #f5f0e2;
+  --border:   rgba(58,140,80,0.18);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 300;
+  line-height: 1.7;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ── CURSOR ── */
+.cur { position: fixed; pointer-events: none; z-index: 9999; }
+#cd {
+  width: 7px; height: 7px;
+  background: var(--green2);
+  border-radius: 50%;
+  transform: translate(-50%,-50%);
+  transition: width .2s, height .2s, background .2s;
+}
+#cr {
+  width: 32px; height: 32px;
+  border: 1px solid rgba(79,168,102,.35);
+  border-radius: 50%;
+  transform: translate(-50%,-50%);
+  transition: width .3s, height .3s, opacity .3s;
+}
+body:has(a:hover) #cd, body:has(button:hover) #cd { width: 12px; height: 12px; background: var(--amber2); }
+body:has(a:hover) #cr, body:has(button:hover) #cr { width: 52px; height: 52px; opacity: .25; }
+
+/* ── GRAIN ── */
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='1'/%3E%3C/svg%3E");
+  opacity: .022; pointer-events: none; z-index: 9990;
+}
+
+/* ── CLOVER SVG ── */
+.clover {
+  display: inline-block;
+  width: 1em; height: 1em;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg fill='%234fa866'%3E%3Ccircle cx='50' cy='30' r='22'/%3E%3Ccircle cx='70' cy='55' r='22'/%3E%3Ccircle cx='30' cy='55' r='22'/%3E%3Crect x='47' y='55' width='6' height='28' rx='3'/%3E%3Cellipse cx='38' cy='82' rx='12' ry='5' transform='rotate(-20 38 82)'/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat;
+  vertical-align: middle;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 24px 52px;
+  transition: all .5s ease;
+}
+nav.scrolled {
+  background: rgba(9,20,16,.93);
+  backdrop-filter: blur(18px);
+  padding: 16px 52px;
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 12px;
+  text-decoration: none;
+}
+.nav-logo-img {
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--border);
+}
+.nav-logo-text {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  font-size: 1.15rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--cream);
+  line-height: 1;
+}
+.nav-logo-text small {
+  display: block;
+  font-size: .55rem;
+  letter-spacing: .3em;
+  color: var(--green2);
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 400;
+  margin-top: 3px;
+}
+.nav-links { display: flex; gap: 36px; list-style: none; }
+.nav-links a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: .68rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  transition: color .3s;
+}
+.nav-links a:hover { color: var(--green2); }
+.nav-book {
+  background: var(--green);
+  color: var(--white);
+  padding: 10px 26px;
+  font-family: 'Oswald', sans-serif;
+  font-size: .75rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-weight: 400;
+  transition: background .3s;
+}
+.nav-book:hover { background: var(--green2); }
+
+/* ── HERO ── */
+.hero {
+  height: 100vh; min-height: 680px;
+  position: relative;
+  display: flex; align-items: flex-end;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(to right, rgba(9,20,16,.95) 45%, rgba(9,20,16,.4) 100%),
+    linear-gradient(to top, rgba(9,20,16,.9) 0%, transparent 50%);
+  z-index: 1;
+}
+.hero-photos {
+  position: absolute; inset: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 3px;
+}
+.hero-photo {
+  overflow: hidden;
+}
+.hero-photo img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  filter: saturate(.6) brightness(.7);
+  transition: transform 8s ease;
+}
+.hero:hover .hero-photo img { transform: scale(1.04); }
+.hero-photo:nth-child(1) { grid-column: 2 / 4; grid-row: 1 / 3; }
+.hero-photo:nth-child(2) { grid-column: 1; grid-row: 1; }
+.hero-photo:nth-child(3) { grid-column: 1; grid-row: 2; }
+
+.hero-content {
+  position: relative; z-index: 2;
+  padding: 0 52px 80px;
+  max-width: 680px;
+}
+.hero-eyebrow {
+  display: flex; align-items: center; gap: 10px;
+  font-size: .6rem; letter-spacing: .35em; text-transform: uppercase;
+  color: var(--green2);
+  margin-bottom: 20px;
+  opacity: 0; animation: up .8s ease .2s forwards;
+}
+.hero-eyebrow span.clover { width: .8em; height: .8em; }
+.hero-title {
+  font-family: 'Oswald', sans-serif;
+  font-size: clamp(3.5rem, 9vw, 7.5rem);
+  font-weight: 700;
+  line-height: .92;
+  color: var(--white);
+  letter-spacing: -.01em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  opacity: 0; animation: up 1s ease .4s forwards;
+}
+.hero-title .accent { color: var(--green2); }
+.hero-title .italic {
+  font-style: italic;
+  font-family: 'Lora', serif;
+  font-weight: 600;
+  color: var(--amber2);
+  font-size: .75em;
+  text-transform: none;
+}
+.hero-desc {
+  font-size: .9rem;
+  color: var(--text);
+  line-height: 1.7;
+  max-width: 440px;
+  margin-bottom: 40px;
+  opacity: 0; animation: up .9s ease .65s forwards;
+}
+.hero-actions {
+  display: flex; gap: 14px; flex-wrap: wrap;
+  opacity: 0; animation: up .9s ease .85s forwards;
+}
+.btn-g {
+  background: var(--green);
+  color: var(--white);
+  padding: 15px 40px;
+  font-family: 'Oswald', sans-serif;
+  font-size: .8rem;
+  font-weight: 400;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background .3s;
+}
+.btn-g:hover { background: var(--green2); }
+.btn-out {
+  background: transparent;
+  border: 1px solid rgba(79,168,102,.4);
+  color: var(--green2);
+  padding: 15px 40px;
+  font-family: 'Oswald', sans-serif;
+  font-size: .8rem;
+  font-weight: 400;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: border-color .3s, background .3s;
+}
+.btn-out:hover { border-color: var(--green2); background: rgba(79,168,102,.06); }
+
+.hero-scroll {
+  position: absolute; bottom: 36px; right: 52px; z-index: 2;
+  display: flex; flex-direction: column; align-items: flex-end; gap: 8px;
+  opacity: 0; animation: up .8s ease 1.3s forwards;
+}
+.hero-scroll-text {
+  font-size: .55rem; letter-spacing: .3em; text-transform: uppercase; color: var(--muted);
+  writing-mode: vertical-rl;
+}
+.hero-scroll-line {
+  width: 1px; height: 50px;
+  background: linear-gradient(var(--green2), transparent);
+  animation: pulse 2.2s ease infinite;
+}
+@keyframes pulse { 0%,100%{opacity:.3} 50%{opacity:1} }
+@keyframes up { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+
+/* ── STATS BAR ── */
+.statsbar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: var(--bg2);
+}
+.sb-item {
+  padding: 44px 32px;
+  text-align: center;
+  border-right: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+  transition: background .4s;
+}
+.sb-item::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+  background: var(--green);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .4s;
+}
+.sb-item:hover { background: rgba(58,140,80,.04); }
+.sb-item:hover::after { transform: scaleX(1); }
+.sb-item:last-child { border-right: none; }
+.sb-num {
+  font-family: 'Oswald', sans-serif;
+  font-size: 3.4rem;
+  font-weight: 300;
+  color: var(--green2);
+  line-height: 1;
+  display: block; margin-bottom: 8px;
+}
+.sb-label {
+  font-size: .6rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ── SHARED ── */
+.wrap { max-width: 1180px; margin: 0 auto; padding: 0 52px; }
+section { padding: 108px 0; }
+.tag {
+  font-size: .58rem; letter-spacing: .38em; text-transform: uppercase;
+  color: var(--green2);
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 18px;
+}
+.tag::before { content: ''; width: 28px; height: 1px; background: var(--green2); }
+.h2 {
+  font-family: 'Oswald', sans-serif;
+  font-size: clamp(2rem, 4.5vw, 3.6rem);
+  font-weight: 600;
+  color: var(--cream);
+  text-transform: uppercase;
+  line-height: 1.05;
+  letter-spacing: .02em;
+}
+.h2 em {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-weight: 600;
+  color: var(--green2);
+  text-transform: none;
+}
+
+/* reveal */
+.r { opacity: 0; transform: translateY(36px); transition: opacity .8s ease, transform .8s ease; }
+.r.v { opacity: 1; transform: none; }
+.r.d1 { transition-delay: .1s; }
+.r.d2 { transition-delay: .2s; }
+.r.d3 { transition-delay: .3s; }
+.r.d4 { transition-delay: .4s; }
+
+/* ── ABOUT ── */
+.about { background: var(--bg2); overflow: hidden; position: relative; }
+.about-glow {
+  position: absolute; top: -200px; right: -200px;
+  width: 600px; height: 600px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(58,140,80,.07), transparent 70%);
+  pointer-events: none;
+}
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.about-lead {
+  font-family: 'Lora', serif;
+  font-size: 1.2rem;
+  font-style: italic;
+  color: var(--cream);
+  line-height: 1.8;
+  margin: 28px 0;
+}
+.about-body { font-size: .87rem; color: var(--muted); line-height: 1.85; }
+.about-body + .about-body { margin-top: 16px; }
+.about-body strong { color: var(--text); font-weight: 500; }
+.about-pills {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin-top: 36px;
+}
+.pill {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: .62rem;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  padding: 7px 18px;
+  transition: border-color .3s, color .3s;
+}
+.pill:hover { border-color: var(--green2); color: var(--green2); }
+.about-photos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 8px;
+}
+.about-photos img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: saturate(.8);
+  transition: filter .4s, transform .6s;
+}
+.about-photos img:hover { filter: saturate(1); }
+.about-photos .ap1 { grid-column: 1 / -1; height: 260px; }
+.about-photos .ap2 { height: 180px; }
+.about-photos .ap3 { height: 180px; }
+
+/* ── FEATURES ── */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  margin-top: 64px;
+}
+.fc {
+  background: var(--bg);
+  padding: 48px 40px;
+  position: relative; overflow: hidden;
+  transition: background .4s;
+}
+.fc:hover { background: var(--bg3); }
+.fc::after {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: var(--green);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .45s;
+}
+.fc:hover::after { transform: scaleX(1); }
+.fc-icon {
+  width: 48px; height: 48px;
+  border: 1px solid var(--border);
+  margin-bottom: 28px;
+  display: flex; align-items: center; justify-content: center;
+  transition: border-color .3s;
+}
+.fc:hover .fc-icon { border-color: var(--green2); }
+.fc-icon svg { width: 22px; height: 22px; stroke: var(--green2); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.fc-title {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--cream);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  letter-spacing: .05em;
+}
+.fc-desc { font-size: .8rem; color: var(--muted); line-height: 1.75; }
+.fc-n {
+  position: absolute; bottom: 20px; right: 28px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 4.5rem;
+  font-weight: 700;
+  color: rgba(58,140,80,.05);
+  line-height: 1;
+}
+
+/* ── GALLERY ── */
+.gallery { background: var(--bg2); }
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 200px;
+  gap: 6px;
+  margin-top: 56px;
+}
+.gi {
+  overflow: hidden;
+  position: relative;
+  background: var(--surface);
+}
+.gi img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: saturate(.75) brightness(.85);
+  transition: transform .6s ease, filter .4s ease;
+}
+.gi:hover img { transform: scale(1.06); filter: saturate(1) brightness(.95); }
+.gi.tall { grid-row: span 2; }
+.gi.wide { grid-column: span 2; }
+.gi-overlay {
+  position: absolute; inset: 0;
+  background: rgba(9,20,16,.5);
+  display: flex; align-items: flex-end; padding: 16px;
+  opacity: 0; transition: opacity .3s;
+}
+.gi:hover .gi-overlay { opacity: 1; }
+.gi-label {
+  font-size: .6rem;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--green3);
+}
+
+/* ── EVENTS ── */
+.events { background: var(--bg); }
+.events-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 56px; gap: 32px; }
+.events-header .h2 { max-width: 460px; }
+.events-sub {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: .9rem;
+  color: var(--muted);
+  max-width: 260px;
+  text-align: right;
+  line-height: 1.6;
+}
+.ev-list { display: flex; flex-direction: column; }
+.ev {
+  display: grid;
+  grid-template-columns: 70px 1fr auto;
+  align-items: center;
+  gap: 32px;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--border);
+  transition: background .25s;
+  position: relative;
+}
+.ev::before {
+  content: '';
+  position: absolute; left: -52px; right: -52px; top: 0; bottom: 0;
+  background: rgba(58,140,80,.03);
+  opacity: 0; transition: opacity .3s;
+}
+.ev:hover::before { opacity: 1; }
+.ev-day {
+  font-family: 'Oswald', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 300;
+  color: var(--green2);
+  line-height: 1;
+  text-align: center;
+}
+.ev-day-sub {
+  display: block;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: .5rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-align: center;
+  margin-top: 3px;
+}
+.ev-name {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: var(--cream);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  margin-bottom: 3px;
+}
+.ev-desc { font-size: .75rem; color: var(--muted); }
+.ev-tag {
+  font-size: .55rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  border: 1px solid var(--border);
+  color: var(--green2);
+  padding: 5px 14px;
+  transition: border-color .3s;
+  white-space: nowrap;
+}
+.ev:hover .ev-tag { border-color: var(--green2); }
+
+/* ── CONTACT ── */
+.contact {
+  background: var(--bg2);
+  position: relative; overflow: hidden;
+}
+.contact-bg-text {
+  position: absolute;
+  font-family: 'Oswald', sans-serif;
+  font-size: 18vw; font-weight: 700;
+  color: rgba(58,140,80,.03);
+  top: 50%; left: 50%; transform: translate(-50%,-50%);
+  white-space: nowrap; pointer-events: none; letter-spacing: -.03em;
+  text-transform: uppercase;
+}
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 56px; position: relative; z-index: 1; }
+.contact-col-title {
+  font-size: .58rem; letter-spacing: .32em; text-transform: uppercase;
+  color: var(--green2); margin-bottom: 24px;
+  padding-bottom: 12px; border-bottom: 1px solid var(--border);
+}
+.hours-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,.03);
+  font-size: .82rem;
+}
+.hours-day { color: var(--muted); }
+.hours-time { color: var(--cream); font-variant-numeric: tabular-nums; }
+.hours-row.hot .hours-time { color: var(--green2); }
+.contact-link {
+  display: flex; align-items: center; gap: 14px;
+  padding: 13px 0; border-bottom: 1px solid rgba(255,255,255,.03);
+  text-decoration: none; color: inherit; transition: gap .3s;
+}
+.contact-link:hover { gap: 20px; }
+.contact-link:hover .cl-label { color: var(--green2); }
+.cl-icon {
+  width: 34px; height: 34px;
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.cl-icon svg { width: 14px; height: 14px; stroke: var(--green2); fill: none; stroke-width: 1.5; stroke-linecap: round; }
+.cl-label { font-size: .85rem; color: var(--cream); transition: color .3s; }
+.cl-sub { font-size: .68rem; color: var(--muted); margin-top: 1px; }
+.addr-text { font-size: .85rem; color: var(--muted); line-height: 1.8; margin-bottom: 16px; }
+.addr-note { font-size: .75rem; color: var(--muted); line-height: 1.7; opacity: .7; margin-bottom: 20px; }
+.map-link {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: .63rem; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--green2); text-decoration: none;
+  border-bottom: 1px solid rgba(79,168,102,.3);
+  padding-bottom: 3px; transition: border-color .3s;
+}
+.map-link:hover { border-color: var(--green2); }
+.map-link svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ── RESERVATION ── */
+.reservation { text-align: center; background: var(--bg3); }
+.reservation .tag { justify-content: center; }
+.reservation .tag::before { display: none; }
+.reservation .h2 { margin: 0 auto 16px; }
+.res-lead {
+  font-family: 'Lora', serif; font-style: italic;
+  font-size: 1.1rem; color: var(--muted);
+  margin-bottom: 52px;
+}
+.res-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr auto;
+  gap: 10px;
+  max-width: 840px; margin: 0 auto 18px;
+}
+.rf {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  padding: 15px 18px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: .78rem;
+  color: var(--text);
+  outline: none;
+  transition: border-color .3s;
+  -webkit-appearance: none;
+}
+.rf::placeholder { color: var(--muted); }
+.rf:focus { border-color: var(--green); }
+.rf option { background: var(--bg2); }
+.rf-btn {
+  background: var(--green);
+  border: none; color: var(--white);
+  padding: 15px 30px;
+  font-family: 'Oswald', sans-serif;
+  font-size: .75rem; font-weight: 400;
+  letter-spacing: .18em; text-transform: uppercase;
+  cursor: none; transition: background .3s; white-space: nowrap;
+}
+.rf-btn:hover { background: var(--green2); }
+.res-tel { font-size: .78rem; color: var(--muted); }
+.res-tel a { color: var(--green2); text-decoration: none; }
+.res-tel a:hover { text-decoration: underline; }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+  padding: 44px 0;
+}
+.footer-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 28px; flex-wrap: wrap;
+}
+.footer-logo {
+  display: flex; align-items: center; gap: 10px;
+}
+.footer-logo img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; }
+.footer-logo-name {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500; font-size: 1rem;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--cream);
+}
+.footer-logo-name small {
+  display: block; font-size: .5rem; letter-spacing: .25em;
+  color: var(--green2); font-family: 'IBM Plex Sans', sans-serif; font-weight: 300;
+}
+.footer-copy { font-size: .62rem; color: var(--muted); text-align: center; line-height: 1.7; }
+.footer-socials { display: flex; gap: 10px; }
+.fs {
+  width: 36px; height: 36px; border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--muted); text-decoration: none;
+  font-family: 'Oswald', sans-serif; font-size: .7rem;
+  letter-spacing: .05em;
+  transition: border-color .3s, color .3s;
+}
+.fs:hover { border-color: var(--green2); color: var(--green2); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 960px) {
+  nav { padding: 18px 24px; }
+  nav.scrolled { padding: 12px 24px; }
+  .nav-links, .nav-book { display: none; }
+  .wrap { padding: 0 24px; }
+  .statsbar { grid-template-columns: 1fr 1fr; }
+  .sb-item:nth-child(2) { border-right: none; }
+  .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 44px; }
+  .features-grid { grid-template-columns: 1fr; }
+  .gallery-grid { grid-template-columns: 1fr 1fr; }
+  .gi.wide { grid-column: span 1; }
+  .ev { grid-template-columns: 60px 1fr; }
+  .ev-tag { display: none; }
+  .events-header { flex-direction: column; align-items: flex-start; }
+  .events-sub { text-align: left; }
+  .res-form { grid-template-columns: 1fr; }
+  .hero-photos { grid-template-columns: 1fr; }
+  .hero-photo:nth-child(2), .hero-photo:nth-child(3) { display: none; }
+  .hero-photo:nth-child(1) { grid-column: 1; grid-row: 1 / 3; }
+  .hero-content { padding: 0 24px 64px; max-width: 100%; }
+}
+
+/* === BEGIN DEMO WATERMARK (vgartg.ru) === */
+html::before,html::after,body::before,body::after{
+  content:"vgartg.ru · vgartg.ru · vgartg.ru · vgartg.ru · vgartg.ru · vgartg.ru · vgartg.ru · vgartg.ru · vgartg.ru · vgartg.ru · vgartg.ru · vgartg.ru · vgartg.ru · vgartg.ru · vgartg.ru · vgartg.ru" !important;
+  position:fixed !important;top:50% !important;left:50% !important;
+  width:300vmax !important;height:auto !important;
+  margin:0 !important;padding:0 !important;
+  display:block !important;visibility:visible !important;opacity:.13 !important;
+  text-align:center !important;
+  font-family:"Unbounded","Onest",system-ui,sans-serif !important;
+  font-weight:800 !important;font-size:clamp(26px,2.8vmax,44px) !important;
+  line-height:1 !important;letter-spacing:.35em !important;
+  text-transform:lowercase !important;color:#FFE9A8 !important;
+  background:transparent !important;white-space:nowrap !important;
+  overflow:visible !important;pointer-events:none !important;
+  user-select:none !important;-webkit-user-select:none !important;
+  z-index:2147483646 !important;transform-origin:center center !important;
+  mix-blend-mode:screen !important;text-shadow:none !important;
+  clip-path:none !important;filter:none !important;
+}
+html::before{transform:translate(-50%,-50%) rotate(-45deg) translate(0,-34vmax) !important}
+html::after {transform:translate(-50%,-50%) rotate(-45deg) translate(0,-11vmax) !important}
+body::before{transform:translate(-50%,-50%) rotate(-45deg) translate(0, 11vmax) !important}
+body::after {transform:translate(-50%,-50%) rotate(-45deg) translate(0, 34vmax) !important}
+@media print{
+  html::before,html::after,body::before,body::after{opacity:.35 !important;color:#FFD24A !important;mix-blend-mode:normal !important;}
+}
+/* === END DEMO WATERMARK === */
+</style>
+
+<!-- === BEGIN DEMO WATERMARK === -->
+<script src="demo-guard.js" defer></script>
+<!-- === END DEMO WATERMARK === -->
+</head>
+<body>
+
+<div class="cur" id="cd"></div>
+<div class="cur" id="cr"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-text">
+      Эйнштейна
+      <small>Паб · Ростов-на-Дону</small>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">О нас</a></li>
+    <li><a href="#features">Развлечения</a></li>
+    <li><a href="#gallery">Галерея</a></li>
+    <li><a href="#events">События</a></li>
+    <li><a href="#contact">Контакты</a></li>
+  </ul>
+  <a href="#reservation" class="nav-book">Забронировать</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-photos">
+    <div class="hero-photo">
+      <img src="img/bar-girl.jpg" alt="Паб Эйнштейна">
+    </div>
+    <div class="hero-photo">
+      <img src="img/drummer-smile.jpg" alt="Живая музыка">
+    </div>
+    <div class="hero-photo">
+      <img src="img/couple-dance.jpg" alt="Атмосфера">
+    </div>
+  </div>
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <span class="clover"></span>
+      Ростов-на-Дону · ул. Зорге, 17
+    </div>
+    <h1 class="hero-title">
+      Паб<br>
+      <span class="accent">Эйн</span>штейна<br>
+      <span class="italic">— твоё место</span>
+    </h1>
+    <p class="hero-desc">
+      15 сортов пива, 23 экрана, живая музыка и атмосфера, в которой хочется остаться до самого утра.
+    </p>
+    <div class="hero-actions">
+      <a href="#reservation" class="btn-g">Забронировать стол</a>
+      <a href="#events" class="btn-out">Ближайшие события</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span class="hero-scroll-text">Листать вниз</span>
+    <div class="hero-scroll-line"></div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="statsbar">
+  <div class="sb-item r">
+    <span class="sb-num" data-target="15">0</span>
+    <span class="sb-label">Сортов пива на кране</span>
+  </div>
+  <div class="sb-item r d1">
+    <span class="sb-num" data-target="23">0</span>
+    <span class="sb-label">Экранов по всему залу</span>
+  </div>
+  <div class="sb-item r d2">
+    <span class="sb-num" data-target="7">0</span>
+    <span class="sb-label">Дней в неделю открыты</span>
+  </div>
+  <div class="sb-item r d3">
+    <span class="sb-num">+</span>
+    <span class="sb-label">Только хорошие вечера</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-glow"></div>
+  <div class="wrap">
+    <div class="about-grid">
+      <div>
+        <p class="tag r">О заведении</p>
+        <h2 class="h2 r d1">Самое тёплое<br>и <em>светлое</em><br>место города</h2>
+        <p class="about-lead r d2">
+          Паб, в котором собираются настоящие люди — с характером, с историями и с хорошим вкусом к пиву.
+        </p>
+        <p class="about-body r d2">
+          Мы открылись, чтобы дать городу место, где <strong>не нужно притворяться</strong>. Приходи один, с друзьями, с коллегами или с той самой компанией, которая собирается раз в год. Здесь всегда рады.
+        </p>
+        <p class="about-body r d3">
+          Кальяны, бильярд, кикер, кино по воскресеньям, вечеринки в стиле 90-х, мексиканские и русские гуляния — расписание меняется, но <strong>атмосфера остаётся</strong>.
+        </p>
+        <div class="about-pills r d3">
+          <span class="pill">15 сортов пива</span>
+          <span class="pill">Кальяны</span>
+          <span class="pill">Бильярд</span>
+          <span class="pill">Кикер</span>
+          <span class="pill">Живая музыка</span>
+          <span class="pill">Кино по воскресеньям</span>
+          <span class="pill">Корпоративы</span>
+          <span class="pill">23 экрана</span>
+        </div>
+      </div>
+      <div class="about-photos r d2">
+        <img class="ap1" src="img/live-band.jpg" alt="Живая музыка">
+        <img class="ap2" src="img/bar-portrait.jpg" alt="Атмосфера бара">
+        <img class="ap3" src="img/guests-table.jpg" alt="Гости паба"> 
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features" style="background: var(--bg);">
+  <div class="wrap">
+    <div style="text-align:center; margin-bottom: 0;">
+      <p class="tag r" style="justify-content:center;"><span style="display:none"></span>Развлечения</p>
+      <h2 class="h2 r d1" style="margin: 0 auto;">Всё что нужно для <em>идеального вечера</em></h2>
+    </div>
+    <div class="features-grid r d1">
+      <div class="fc">
+        <div class="fc-icon">
+          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <div class="fc-title">Спорт на 23 экранах</div>
+        <p class="fc-desc">Футбол, хоккей, UFC, баскетбол — любой матч в прямом эфире в большом формате.</p>
+        <span class="fc-n">01</span>
+      </div>
+      <div class="fc">
+        <div class="fc-icon">
+          <svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+        </div>
+        <div class="fc-title">Живая музыка</div>
+        <p class="fc-desc">Кавер-группы, DJ-сеты, вечеринки 90-х — каждый месяц новая программа.</p>
+        <span class="fc-n">02</span>
+      </div>
+      <div class="fc">
+        <div class="fc-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/></svg>
+        </div>
+        <div class="fc-title">Бильярд и кикер</div>
+        <p class="fc-desc">Столы для бильярда, кикер, алкогольные турниры по выходным с призами.</p>
+        <span class="fc-n">03</span>
+      </div>
+      <div class="fc">
+        <div class="fc-icon">
+          <svg viewBox="0 0 24 24"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+        </div>
+        <div class="fc-title">Кино по воскресеньям</div>
+        <p class="fc-desc">Каждое воскресенье — культовый фильм на большом экране с пивом и закусками.</p>
+        <span class="fc-n">04</span>
+      </div>
+      <div class="fc">
+        <div class="fc-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 3h7v7H3z"/><path d="M14 3h7v7h-7z"/><path d="M14 14h7v7h-7z"/><path d="M3 14h7v7H3z"/></svg>
+        </div>
+        <div class="fc-title">Кальяны</div>
+        <p class="fc-desc">Широкий выбор миксов. Опытные мастера, комфортные места, расслабляющая атмосфера.</p>
+        <span class="fc-n">05</span>
+      </div>
+      <div class="fc">
+        <div class="fc-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div class="fc-title">Корпоративы</div>
+        <p class="fc-desc">Организуем закрытые мероприятия под ключ: зал, меню, артисты, программа.</p>
+        <span class="fc-n">06</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery" id="gallery">
+  <div class="wrap">
+    <p class="tag r">Фотографии</p>
+    <h2 class="h2 r d1">Атмосфера<br><em>изнутри</em></h2>
+    <div class="gallery-grid r d2">
+      <div class="gi tall">
+        <img src="img/live-band.jpg" alt="Живая группа">
+        <div class="gi-overlay"><span class="gi-label">Живая музыка</span></div>
+      </div>
+      <div class="gi">
+        <img src="img/drummer-smile.jpg" alt="Барабанщик">
+        <div class="gi-overlay"><span class="gi-label">Выступление</span></div>
+      </div>
+      <div class="gi wide">
+        <img src="img/guests-table.jpg" alt="Гости">
+        <div class="gi-overlay"><span class="gi-label">Гости паба</span></div>
+      </div>
+      <div class="gi">
+        <img src="img/keyboard.jpg" alt="Клавишник">
+        <div class="gi-overlay"><span class="gi-label">Музыканты</span></div>
+      </div>
+      <div class="gi">
+        <img src="img/drummer-focus.jpg" alt="Барабанщик">
+        <div class="gi-overlay"><span class="gi-label">Концерт</span></div>
+      </div>
+      <div class="gi tall">
+        <img src="img/dancing-girl.jpg" alt="Танцы">
+        <div class="gi-overlay"><span class="gi-label">Вечеринка</span></div>
+      </div>
+      <div class="gi">
+        <img src="img/bar-portrait.jpg" alt="Атмосфера">
+        <div class="gi-overlay"><span class="gi-label">Атмосфера</span></div>
+      </div>
+      <div class="gi">
+        <img src="img/bar-girl.jpg" alt="Бар">
+        <div class="gi-overlay"><span class="gi-label">Бар</span></div>
+      </div>
+      <div class="gi wide">
+        <img src="img/couple-dance.jpg" alt="Танцы">
+        <div class="gi-overlay"><span class="gi-label">Танцы</span></div>
+      </div>
+      <div class="gi">
+        <img src="img/dance-bw.jpg" alt="Пара">
+        <div class="gi-overlay"><span class="gi-label">Вечер</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EVENTS -->
+<section class="events" id="events">
+  <div class="wrap">
+    <div class="events-header">
+      <div>
+        <p class="tag r">Афиша</p>
+        <h2 class="h2 r d1">Ближайшие <em>события</em></h2>
+      </div>
+      <p class="events-sub r">Программа обновляется каждую неделю — следи за нами</p>
+    </div>
+    <div class="ev-list">
+      <div class="ev r">
+        <div>
+          <div class="ev-day">ПТ</div>
+          <span class="ev-day-sub">Каждую неделю</span>
+        </div>
+        <div>
+          <div class="ev-name">Вечеринка 90-х</div>
+          <div class="ev-desc">Кавер-группа + DJ — хиты, которые ты знаешь наизусть</div>
+        </div>
+        <span class="ev-tag">Музыка</span>
+      </div>
+      <div class="ev r d1">
+        <div>
+          <div class="ev-day">СБ</div>
+          <span class="ev-day-sub">Каждую неделю</span>
+        </div>
+        <div>
+          <div class="ev-name">Алкогольный турнир</div>
+          <div class="ev-desc">Кикер и бильярд — соревнования, призы, веселье</div>
+        </div>
+        <span class="ev-tag">Спорт</span>
+      </div>
+      <div class="ev r d2">
+        <div>
+          <div class="ev-day">ВС</div>
+          <span class="ev-day-sub">Каждую неделю</span>
+        </div>
+        <div>
+          <div class="ev-name">Кинопоказ</div>
+          <div class="ev-desc">Культовое кино на большом экране — с пивом и закусками</div>
+        </div>
+        <span class="ev-tag">Кино</span>
+      </div>
+      <div class="ev r d1">
+        <div>
+          <div class="ev-day">ЧТ</div>
+          <span class="ev-day-sub">Ежемесячно</span>
+        </div>
+        <div>
+          <div class="ev-name">Мексиканский вечер</div>
+          <div class="ev-desc">Текила, маргариты, яркие костюмы и настроение fiesta</div>
+        </div>
+        <span class="ev-tag">Тематика</span>
+      </div>
+      <div class="ev r d2">
+        <div>
+          <div class="ev-day">ВС</div>
+          <span class="ev-day-sub">Ежемесячно</span>
+        </div>
+        <div>
+          <div class="ev-name">Русские гуляния</div>
+          <div class="ev-desc">Народная музыка, конкурсы и настоящая русская душа</div>
+        </div>
+        <span class="ev-tag">Тематика</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-bg-text">EINSTEIN</div>
+  <div class="wrap">
+    <div class="contact-grid">
+      <div class="r">
+        <div class="contact-col-title">Часы работы</div>
+        <div class="hours-row">
+          <span class="hours-day">Пн — Чт</span>
+          <span class="hours-time">15:00 — 01:00</span>
+        </div>
+        <div class="hours-row hot">
+          <span class="hours-day">Пятница</span>
+          <span class="hours-time">15:00 — 02:00</span>
+        </div>
+        <div class="hours-row hot">
+          <span class="hours-day">Суббота</span>
+          <span class="hours-time">15:00 — 02:00</span>
+        </div>
+        <div class="hours-row">
+          <span class="hours-day">Воскресенье</span>
+          <span class="hours-time">15:00 — 01:00</span>
+        </div>
+      </div>
+      <div class="r d1">
+        <div class="contact-col-title">Контакты</div>
+        <a href="tel:+78632043119" class="contact-link">
+          <div class="cl-icon">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.65 3.5 2 2 0 0 1 3.62 1.33h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <div>
+            <div class="cl-label">+7 (863) 204-31-19</div>
+            <div class="cl-sub">Основной телефон</div>
+          </div>
+        </a>
+        <a href="tel:+79895354955" class="contact-link">
+          <div class="cl-icon">
+            <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+          </div>
+          <div>
+            <div class="cl-label">8-989-535-49-55</div>
+            <div class="cl-sub">Бронирование столов</div>
+          </div>
+        </a>
+      </div>
+      <div class="r d2">
+        <div class="contact-col-title">Как нас найти</div>
+        <p class="addr-text">ул. Зорге, 17<br>Ростов-на-Дону, Россия</p>
+        <p class="addr-note">Остановка «Зорге» — трамвай 4, 7<br>Парковка во дворе — бесплатно</p>
+        <a href="https://yandex.ru/maps/?text=Зорге+17+Ростов-на-Дону" class="map-link" target="_blank" rel="noopener">
+          Открыть в Яндекс Картах
+          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESERVATION -->
+<section class="reservation" id="reservation">
+  <div class="wrap">
+    <p class="tag r">Бронирование</p>
+    <h2 class="h2 r d1">Займи лучшее<br><em>место в зале</em></h2>
+    <p class="res-lead r d2">Оставь заявку — мы перезвоним и подтвердим бронь</p>
+    <form class="res-form r d2" onsubmit="return submitRes(event)">
+      <input class="rf" type="text" placeholder="Ваше имя" required>
+      <input class="rf" type="tel" placeholder="+7 (___) ___-__-__" required>
+      <select class="rf">
+        <option value="" disabled selected>Количество гостей</option>
+        <option>2 гостя</option>
+        <option>3 гостя</option>
+        <option>4 гостя</option>
+        <option>5–6 гостей</option>
+        <option>7–10 гостей</option>
+        <option>Больше 10</option>
+      </select>
+      <button type="submit" class="rf-btn">Отправить</button>
+    </form>
+    <p class="res-tel r d3">Или позвоните прямо сейчас: <a href="tel:+79895354955">8-989-535-49-55</a></p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <div class="footer-logo-name">
+          Эйнштейна
+          <small>Паб · Ростов-на-Дону</small>
+        </div>
+      </div>
+      <div class="footer-copy">
+        &copy; 2024 Паб Эйнштейна · ул. Зорге, 17, Ростов-на-Дону<br>
+        <span style="opacity:.5; font-size:.55rem;">Чрезмерное употребление алкоголя вредит вашему здоровью</span>
+      </div>
+      <div class="footer-socials">
+        <a href="#" class="fs">VK</a>
+        <a href="#" class="fs">IG</a>
+        <a href="#" class="fs">TG</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Cursor
+const cd = document.getElementById('cd');
+const cr = document.getElementById('cr');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cd.style.cssText += `left:${mx}px;top:${my}px`; });
+(function loop() { rx += (mx-rx)*.1; ry += (my-ry)*.1; cr.style.cssText += `left:${rx}px;top:${ry}px`; requestAnimationFrame(loop); })();
+
+// Nav scroll
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 50), {passive:true});
+
+// Reveal
+const obs = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('v'); obs.unobserve(e.target); } }), {threshold:.1, rootMargin:'0px 0px -30px 0px'});
+document.querySelectorAll('.r').forEach(el => obs.observe(el));
+
+// Counter
+const counters = document.querySelectorAll('[data-target]');
+const cObs = new IntersectionObserver(es => es.forEach(e => {
+  if (!e.isIntersecting) return;
+  const el = e.target, n = +el.dataset.target;
+  let i = 0;
+  const t = setInterval(() => { i += Math.ceil(n/40); if(i>=n){el.textContent=n;clearInterval(t);}else el.textContent=i; }, 30);
+  cObs.unobserve(el);
+}), {threshold:.5});
+counters.forEach(el => cObs.observe(el));
+
+// Reservation
+function submitRes(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('.rf-btn');
+  btn.textContent = 'Отправлено!';
+  btn.style.background = 'var(--green2)';
+  setTimeout(() => { btn.textContent = 'Отправить'; btn.style.background = ''; e.target.reset(); }, 3000);
+  return false;
+}
+</script>
+</body>
+</html>
